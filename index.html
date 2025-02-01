@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beni Seviyonmuu</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center; 
+            height: 100vh;
+            background-color: #a1b1f5;
+            text-align: center;
+        }
+
+        .container {
+            text-align: center;
+            width: 90%;
+            max-width: 500px;
+        }
+
+        .buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        button {
+            padding: 12px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 15px;
+            border: none;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .result-container {
+            position: relative;
+            text-align: center;
+            width: 90%;
+            max-width: 500px;
+        }
+
+        #result h2 {
+            position: absolute;
+            top: -80px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 16px;
+            display: inline-block;
+            width: 100%;
+            max-width: 90%;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        @keyframes heartMove {
+            0% {
+                transform: translateY(-10vh);
+            }
+            100% {
+                transform: translateY(110vh);
+            }
+        }
+
+        .fa-heart {
+            color: rgb(145, 79, 238);
+            font-size: 25px;
+            position: absolute;
+            animation: heartMove linear infinite;
+            top: -10vh;
+            z-index: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="container">
+        <h1 id="title">Beni Seviyonmuu</h1>
+        <img id="image" src="https://i.hizliresim.com/6948cn7.png" alt="McQueen">
+        <div class="buttons">
+            <button id="yesButton">Evet</button>
+            <button id="noButton">Hayır</button>
+        </div>
+    </div>
+    <div id="result" class="hidden">
+        <div class="result-container">
+            <h2>Yuppiii Bendee senii. Bide doğum günün kutlu olsunn</h2>
+            <img id="newImage" src="" alt="New Image">
+        </div>
+    </div>
+    <script>
+        function moveNoButton(event) {
+            const noButton = document.getElementById('noButton');
+            const x = Math.random() * (window.innerWidth - noButton.offsetWidth);
+            const y = Math.random() * (window.innerHeight - noButton.offsetHeight);
+            noButton.style.position = "absolute";
+            noButton.style.left = x + 'px';
+            noButton.style.top = y + 'px';
+        }
+
+        document.getElementById('noButton').addEventListener('mouseover', moveNoButton);
+        document.getElementById('noButton').addEventListener('touchstart', moveNoButton);
+
+        document.getElementById('yesButton').addEventListener('click', function() {
+            document.getElementById('container').style.display = 'none';
+
+            const result = document.getElementById('result');
+            result.classList.remove('hidden');
+            result.querySelector('#newImage').src = 'https://c.tenor.com/9CPzp06cA4YAAAAC/tenor.gif';
+
+            for (let i = 0; i < 10; i++) {
+                createHeart();
+            }
+        });
+
+        function createHeart() {
+            const heart = document.createElement("i");
+            heart.className = "fas fa-heart";
+            heart.style.position = "absolute";
+            heart.style.left = (Math.random() * 100) + "vw";
+            heart.style.animationDuration = (Math.random() * 3) + 2 + "s";
+            
+            document.getElementById('result').appendChild(heart);
+
+            const heartArr = document.querySelectorAll(".fa-heart");
+            if (heartArr.length > 200) {
+                heartArr[0].remove();
+            }
+        }
+
+        setInterval(createHeart, 100);
+    </script>
+    <script src="https://kit.fontawesome.com/4f3ce16e3e.js" crossorigin="anonymous"></script>
+</body>
+</html>
